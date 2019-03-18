@@ -23,31 +23,48 @@ export default {
     }
   },
 
-  created() {
-    // axios.get('http://jsonplaceholder.typicode.com/posts')       /////2.korak   5.korak ovo smo iskopirail u postService metodu getPOst
-    postService.getPosts()                        ////////////8.korak      zamena umesto ovog iznad obrisanog
-    .then(response => response.data)
-    .then(data => {
-      this.posts = data;
+  async created() {
+    ////12.korak async poziv
 
-      postService.create({           ///////10. korak
+    try{
+      const { data } = await postService.getPosts();
+      this.posts= data;
+
+      const { data: newPost } = await postService.create({
         name: 'Kiza',
-
         lastName: 'Nestorovic'
-      })
-      .then(response => response.data)
-      .then(data=> {
-            console.log(data)})
-      .catch(e=> {
-        console.log(e)
-      })
+      });
+      console.log(newPost);     ///isto to i const{ data: newPost} = const newPost = response.data
+      }
+      catch(error){
+        console.log(error);
+      }
+    }
+
+    // axios.get('http://jsonplaceholder.typicode.com/posts')       /////2.korak   5.korak ovo smo iskopirail u postService metodu getPOst
+    // postService.getPosts()                        ////////////8.korak      zamena umesto ovog iznad obrisanog
+    // .then(response => response.data)
+    // .then(data => {
+    //   this.posts = data;
+
+    //   postService.create({           ///////10. korak
+    //     name: 'Kiza',
+
+    //     lastName: 'Nestorovic'
+    //   })
+    //   .then(response => response.data)
+    //   .then(data=> {
+    //         console.log(data)})
+    //   .catch(e=> {
+    //     console.log(e)
+    //   })
       
-    })
-    .catch(e=> {
-      console.log(e);
-    });
+    // })
+    // .catch(e=> {
+    //   console.log(e);
+    // });               ///////11.korak je brisanje svega ovoga da bismo isti rezultal postigli async pozivom
   }
-}
+
 </script>
 
 <style>
