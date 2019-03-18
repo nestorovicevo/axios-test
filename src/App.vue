@@ -29,6 +29,19 @@ export default {
     .then(response => response.data)
     .then(data => {
       this.posts = data;
+
+      postService.create({           ///////10. korak
+        name: 'Kiza',
+
+        lastName: 'Nestorovic'
+      })
+      .then(response => response.data)
+      .then(data=> {
+            console.log(data)})
+      .catch(e=> {
+        console.log(e)
+      })
+      
     })
     .catch(e=> {
       console.log(e);
